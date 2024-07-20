@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float speed = 5f;
 
+    private float movementX;
+    private float movementY;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +24,12 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float xInput = Input.GetAxis("Horizontal");
-        float yInput = Input.GetAxis("Vertical");
+        movementX = Input.GetAxis("Horizontal");
+        movementY = Input.GetAxis("Vertical");
 
-        Vector2 input = new Vector2(xInput, yInput);
+        Vector2 input = new Vector2(movementX, movementY);
 
-        Debug.Log("Input magnitude: " + input);
+        /* Debug.Log("Input magnitude: " + input); */
 
         if(input.magnitude > 0) {
             rigidBody.velocity = input.normalized * speed;
