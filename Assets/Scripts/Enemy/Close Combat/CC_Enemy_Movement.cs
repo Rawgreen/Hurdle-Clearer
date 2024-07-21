@@ -11,14 +11,17 @@ public class CC_Enemy_Movement : MonoBehaviour
     [SerializeField]
     GameObject player;
 
-    [SerializeField]
-    float speed = 2.5f;
+    float moveSpeed;
 
     private Vector2 playerPosition;
 
     // Start is called before the first frame update
     void Start()
     {
+        CCEnemyStats enemyStats = GetComponent<CCEnemyStats>();
+        if(enemyStats != null) {
+            moveSpeed = enemyStats.GetMoveSpeed();
+        }
         objectPosition = this.transform;
     }
 
@@ -28,6 +31,6 @@ public class CC_Enemy_Movement : MonoBehaviour
         playerPosition = player.transform.position;
 
         // Move the current object towards the player
-        objectPosition.position = Vector2.MoveTowards(objectPosition.position, playerPosition, speed * Time.deltaTime);
+        objectPosition.position = Vector2.MoveTowards(objectPosition.position, playerPosition, moveSpeed * Time.deltaTime);
     }
 }

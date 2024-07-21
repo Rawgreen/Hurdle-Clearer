@@ -7,15 +7,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     Rigidbody2D rigidBody;
 
-    [SerializeField]
-    float speed = 5f;
-
     private float movementX;
     private float movementY;
+    
+    float moveSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
+        PlayerStats playerStats = GetComponent<PlayerStats>();
+        if (playerStats != null){
+            moveSpeed = playerStats.GetMoveSpeed();
+        }
         if (rigidBody == null) {
             rigidBody = GetComponent<Rigidbody2D>();
         }
@@ -32,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         /* Debug.Log("Input magnitude: " + input); */
 
         if(input.magnitude > 0) {
-            rigidBody.velocity = input.normalized * speed;
+            rigidBody.velocity = input.normalized * moveSpeed;
         }
         else {
             rigidBody.velocity = Vector2.zero;

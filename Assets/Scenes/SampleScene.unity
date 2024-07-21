@@ -353,21 +353,17 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 8205923573703916571}
+    - target: {fileID: 5703659181303991670, guid: 71508833899b3ed40a62e403528db4de, type: 3}
+      propertyPath: m_Radius
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703659181303991670, guid: 71508833899b3ed40a62e403528db4de, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5908877207210233268, guid: 71508833899b3ed40a62e403528db4de, type: 3}
       propertyPath: m_Name
       value: CC_Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5908877207210233268, guid: 71508833899b3ed40a62e403528db4de, type: 3}
-      propertyPath: m_TagString
-      value: Close Combat Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 7329419411975712786, guid: 71508833899b3ed40a62e403528db4de, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7329419411975712786, guid: 71508833899b3ed40a62e403528db4de, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7329419411975712786, guid: 71508833899b3ed40a62e403528db4de, type: 3}
       propertyPath: m_LocalPosition.x
@@ -409,6 +405,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7659258076890434248, guid: 71508833899b3ed40a62e403528db4de, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -422,13 +422,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2961620179624289607, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 7
+    - target: {fileID: 727667198000006769, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
+      propertyPath: m_Radius
+      value: 0.072
       objectReference: {fileID: 0}
-    - target: {fileID: 2961620179624289607, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 7
+    - target: {fileID: 727667198000006769, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417125739941123976, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 2961620179624289607, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -473,6 +477,10 @@ PrefabInstance:
     - target: {fileID: 4624464086351268175, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572837344958212992, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
+      propertyPath: moveSpeed
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
