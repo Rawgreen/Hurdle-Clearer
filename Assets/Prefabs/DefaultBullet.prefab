@@ -161,5 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2fb5a6757c0d48419a16734091c8d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 50
   rigidBody: {fileID: 465502900864559786}
+  destroyDelayTime: 5
+  projectileSpeed: 50
+  projectileDamage: 50
