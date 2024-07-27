@@ -58,5 +58,13 @@ namespace Player {
                 rigidBody.velocity = Vector2.zero;
             }
         }
+
+        public bool isPlayerOnMove() {
+            if (rigidBody.velocity != Vector2.zero) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }

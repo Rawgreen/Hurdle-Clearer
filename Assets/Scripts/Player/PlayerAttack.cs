@@ -18,7 +18,9 @@ namespace Player {
         private GameObject projectileLaunchPosition;  // The position from which projectiles are launched.
 
         private PlayerStats playerStats;  // Reference to the player's stats.
+        private PlayerMovement playerMovement;
 
+        private bool isMoving;
         private float attackDistance;  // The maximum distance at which the player can attack.
         private float attackDelay;  // The delay between consecutive attacks.
         private GameObject enemyObject;  // The enemy object targeted by the player.
@@ -51,16 +53,21 @@ namespace Player {
         /// between attacks has passed.
         /// </remarks>
         void Update() {
+            playerMovement = GetComponent<PlayerMovement>();
+            if(playerMovement != null) {
+                isMoving = playerMovement.isPlayerOnMove();
+            }
+
             enemyObject = GameObject.FindGameObjectWithTag("Enemy");
-            
             if (enemyObject != null)
             {
+                // performing vector calculation.
                 enemyDistance = (enemyObject.transform.position - transform.position).magnitude;
-                if (enemyDistance <= attackDistance) {
+                if (enemyDistance <= attackDistance && !isMoving) {
                     delay += Time.deltaTime;
                     if (delay >= attackDelay) {
                         FireProjectile();
-                        delay = 0;
+                        delay = 0f;
                     }
                 }
             }

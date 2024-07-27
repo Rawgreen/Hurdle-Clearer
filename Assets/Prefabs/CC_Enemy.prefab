@@ -252,6 +252,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3746122583310960458
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5932975854959520242}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5932975854959520242
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3746122583310960458}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7329419411975712786}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5908877207210233268
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,6 +298,7 @@ GameObject:
   - component: {fileID: 2842717802776053082}
   - component: {fileID: 9162206889293581814}
   - component: {fileID: 393325810361328976}
+  - component: {fileID: 1111340545770453145}
   m_Layer: 0
   m_Name: CC_Enemy
   m_TagString: Enemy
@@ -288,6 +320,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9015373920936590581}
+  - {fileID: 5932975854959520242}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1880474467682693578
@@ -419,6 +452,8 @@ MonoBehaviour:
   enemyHealth: 200
   attackDamage: 10
   moveSpeed: 1.5
+  attackRange: 1.5
+  attackDelay: 1
 --- !u!114 &9162206889293581814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,6 +482,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 7684270615223422089}
   currentHealth: 0
+--- !u!114 &1111340545770453145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5908877207210233268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0135bc62023c12241a17b9ec0b969234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: {fileID: 5932975854959520242}
 --- !u!1 &6934992485840666424
 GameObject:
   m_ObjectHideFlags: 0
