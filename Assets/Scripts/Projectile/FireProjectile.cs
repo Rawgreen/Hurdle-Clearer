@@ -8,8 +8,7 @@ namespace Projectile {
     /// <summary>
     /// Manages the behavior of a projectile, including its movement, rotation, and collision.
     /// </summary>
-    public class FireProjectile : MonoBehaviour
-    {
+    public class FireProjectile : MonoBehaviour {
         public Rigidbody2D rigidBody;  // The Rigidbody2D component used for projectile movement.
         public float destroyDelayTime = 5f;  // The time after which the projectile will be destroyed if it doesn't hit anything.
         public float projectileSpeed = 50f;  // The speed at which the projectile travels.
@@ -73,12 +72,11 @@ namespace Projectile {
         /// This method is called when the projectile collides with another object. If the object
         /// has the tag "Enemy", the projectile will apply damage to it and then be destroyed.
         /// </remarks>
-        private void OnTriggerEnter2D(Collider2D other) {
-            if (other.CompareTag("Enemy")) {
-                Enemy.EnemyTakeDamage enemyTakeDamage = other.GetComponent<Enemy.EnemyTakeDamage>();
-                if (enemyTakeDamage != null) {
-                    enemyTakeDamage.TakeDamage(projectileDamage);
-                }
+        private void OnTriggerEnter2D(Collider2D collider) {
+            IDamageable damageable = collider.GetComponent<IDamageable>();
+            if (damageable != null) {
+                // Hit a Damageable Object
+                damageable.Damage(projectileDamage);
                 Destroy(gameObject);
             }
         }

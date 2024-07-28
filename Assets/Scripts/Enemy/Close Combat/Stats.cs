@@ -13,12 +13,6 @@ namespace Enemy {
         
         [SerializeField]
         private float moveSpeed = 1.5f;  // The movement speed of the enemy.
-        
-        [SerializeField]
-        private float attackRange = 1.5f;
-
-        [SerializeField]
-        private float attackDelay = 1f;
 
         /// <summary>
         /// Gets the enemy's current health.
@@ -38,14 +32,6 @@ namespace Enemy {
         /// </returns>
         public float GetMoveSpeed() {
             return moveSpeed;
-        }
-
-        public float GetAttackRange() {
-            return attackRange;
-        }
-
-        public float GetAttackDelay() {
-            return attackDelay;
         }
     }
 }

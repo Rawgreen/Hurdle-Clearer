@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
 using Projectile;
+using Interfaces;
 
 namespace Player {
     /// <summary>
     /// Manages the player's attack behavior, including projectile firing and attack distance.
     /// </summary>
-    public class PlayerAttack : MonoBehaviour
+    public class PlayerAttack : MonoBehaviour, IAttack
     {
         [SerializeField]
         private GameObject projectilePrefab;  // The prefab used for projectiles.
@@ -27,13 +28,6 @@ namespace Player {
         private float enemyDistance;  // The distance between the player and the enemy.
         private float delay;  // The time elapsed since the last attack.
 
-        /// <summary>
-        /// Initializes the player's attack settings based on the player's stats.
-        /// </summary>
-        /// <remarks>
-        /// This method is called before the first frame update. It retrieves the attack distance and
-        /// attack delay from the PlayerStats component.
-        /// </remarks>
         void Start()
         {
             playerStats = GetComponent<PlayerStats>();
@@ -44,14 +38,6 @@ namespace Player {
             }
         }
 
-        /// <summary>
-        /// Checks the distance to the nearest enemy and handles attacking if within range.
-        /// </summary>
-        /// <remarks>
-        /// This method is called once per frame. It finds the enemy, calculates the distance to
-        /// the player, and fires a projectile if the enemy is within attack range and the delay
-        /// between attacks has passed.
-        /// </remarks>
         void Update() {
             playerMovement = GetComponent<PlayerMovement>();
             if(playerMovement != null) {
@@ -66,21 +52,14 @@ namespace Player {
                 if (enemyDistance <= attackDistance && !isMoving) {
                     delay += Time.deltaTime;
                     if (delay >= attackDelay) {
-                        FireProjectile();
+                        PerformAttack();
                         delay = 0f;
                     }
                 }
             }
         }
 
-        /// <summary>
-        /// Fires a projectile towards the current target enemy.
-        /// </summary>
-        /// <remarks>
-        /// This method instantiates a projectile at the specified launch position and directs it
-        /// towards the enemy's position.
-        /// </remarks>
-        void FireProjectile()
+        public void PerformAttack()
         {
             GameObject projectile = Instantiate(projectilePrefab, projectileLaunchPosition.transform.position, Quaternion.identity);
             FireProjectile fireProjectile = projectile.GetComponent<FireProjectile>();

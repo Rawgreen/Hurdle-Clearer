@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8554005695691447883}
   - component: {fileID: 7459510582880862219}
   - component: {fileID: 250933542316069272}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 1094559451587790070}
   - component: {fileID: 7888567719158489899}
   - component: {fileID: 429181512729230963}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Health Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 1430265792818085087}
   - component: {fileID: 5020175568949917379}
   - component: {fileID: 2324968850775725193}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4814549330940688746}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: InitialProjectilePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 7989132838720267183}
   - component: {fileID: 264975997225598449}
   - component: {fileID: 7684270615223422089}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +401,8 @@ GameObject:
   - component: {fileID: 6604051491614991006}
   - component: {fileID: 3969114667415170039}
   - component: {fileID: 8804912885533953055}
-  m_Layer: 0
+  - component: {fileID: 7509142512980368013}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -561,7 +562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42adc4079914e844eb29143e93034f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 100
+  playerHealth: 1000
   moveSpeed: 6
   attackDelay: 1
   attackDistance: 5
@@ -592,3 +593,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 4310879906453686348, guid: 5f541740c69064346ad6ba55e9d9a7ce, type: 3}
   projectileLaunchPosition: {fileID: 5415795594641639799}
+--- !u!114 &7509142512980368013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7886927089531781201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b89765a98edfc3458a966e374ca0116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  healthBar: {fileID: 7684270615223422089}
