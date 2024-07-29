@@ -13,23 +13,25 @@ namespace Enemy {
         [SerializeField]
         private float attackDelay = 0.5f;
 
+        public bool drawGizmos = false;
         public Transform attackPoint;
         public GameObject ccAttackPrefab;
         public LayerMask playerLayer;
 
         private float timer;
+        private float attackPointAngle;
+        private Vector2 attackPointDirection;
         private GameObject targetPlayer;
         private Transform targetPosition;
 
         void Update() {
-            // Find player and get its position
-            targetPlayer = GameObject.FindGameObjectWithTag("Player");
+            FindPlayer();
+
             if (targetPlayer != null) {
-                targetPosition = targetPlayer.GetComponent<Transform>();
+                UpdateAttackPointDirection();
             }
 
-            // Calculate distance and start attack timer and if timer value more than delay time then perform attack.
-            if(CalculateDistance(targetPosition, gameObject) <= attackRange) {
+            if (targetPosition != null && CalculateDistance(targetPosition, gameObject) <= attackRange) {
                 timer += Time.deltaTime;
                 if (timer >= attackDelay) {
                     PerformAttack();
@@ -38,31 +40,53 @@ namespace Enemy {
             }
         }
 
-        private void PerformAttack() {
-            // detect player in range of attack
-            Collider2D hitPlayer = Physics2D.OverlapCircle(attackPoint.position, attackRange, playerLayer);
-            
-            //deal damage
-            if (hitPlayer != null) {
-                hitPlayer.GetComponent<Player.PlayerTakeDamage>().Damage(attackDamage);
-                Debug.Log(gameObject.name + " hit the target: " + hitPlayer.name);
+        private void FindPlayer() {
+            targetPlayer = GameObject.FindGameObjectWithTag("Player");
+            if (targetPlayer != null) {
+                targetPosition = targetPlayer.transform;
+            } else {
+                targetPosition = null;
             }
         }
 
-        // Vector calculation of distance between target position and gameObject position.
+        private void UpdateAttackPointDirection() {
+            attackPointDirection = targetPlayer.transform.position - transform.position;
+            attackPointAngle = Mathf.Atan2(attackPointDirection.y, attackPointDirection.x) * Mathf.Rad2Deg;
+            attackPoint.rotation = Quaternion.Euler(new Vector3(0, 0, attackPointAngle));
+        }
+
+        private void PerformAttack() {
+            Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayer);
+
+            foreach (Collider2D player in hitPlayers) {
+                Player.PlayerTakeDamage playerDamage = player.GetComponent<Player.PlayerTakeDamage>();
+                if (playerDamage != null) {
+                    playerDamage.Damage(attackDamage);
+                    Debug.Log(gameObject.name + " hit the target: " + player.name);
+                }
+            }
+        }
+
         private float CalculateDistance(Transform target, GameObject currentObject) {
+            if (target == null) {
+                Debug.LogError("Target transform is null");
+                return 0f;
+            }
+            if (currentObject == null) {
+                Debug.LogError("Current object is null");
+                return 0f;
+            }
             return (target.transform.position - currentObject.transform.position).magnitude;
         }
 
-        // Developer only
-        // draw attack distance
         void OnDrawGizmosSelected() {
             if (attackPoint == null) {
                 return;
             }
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+            if (drawGizmos) {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(attackPoint.position, attackRange - 1.225f);
+            }
         }
     }
 }
-
