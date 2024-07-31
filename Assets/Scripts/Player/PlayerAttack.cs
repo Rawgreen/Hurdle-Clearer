@@ -7,26 +7,24 @@ using Projectile;
 using Interfaces;
 
 namespace Player {
-    /// <summary>
-    /// Manages the player's attack behavior, including projectile firing and attack distance.
-    /// </summary>
     public class PlayerAttack : MonoBehaviour, IAttack
     {
         [SerializeField]
-        private GameObject projectilePrefab;  // The prefab used for projectiles.
+        private GameObject projectilePrefab;  
 
         [SerializeField]
-        private GameObject projectileLaunchPosition;  // The position from which projectiles are launched.
+        private GameObject projectileLaunchPosition;  
 
-        private PlayerStats playerStats;  // Reference to the player's stats.
+        private PlayerStats playerStats;  
         private PlayerMovement playerMovement;
+        private Animator animator;
 
         private bool isMoving;
-        private float attackDistance;  // The maximum distance at which the player can attack.
-        private float attackDelay;  // The delay between consecutive attacks.
-        private GameObject enemyObject;  // The enemy object targeted by the player.
-        private float enemyDistance;  // The distance between the player and the enemy.
-        private float delay;  // The time elapsed since the last attack.
+        private float attackDistance;  
+        private float attackDelay;  
+        private GameObject enemyObject;  
+        private float enemyDistance;  
+        private float delay;
 
         void Start()
         {
@@ -35,6 +33,10 @@ namespace Player {
             {
                 attackDistance = playerStats.GetAttackDistance();
                 attackDelay = playerStats.GetAttackDelay();
+            }
+            animator = GetComponent<Animator>();
+            if (animator == null) {
+                Debug.LogError("Animator Couldn't found");
             }
         }
 
@@ -65,10 +67,17 @@ namespace Player {
             FireProjectile fireProjectile = projectile.GetComponent<FireProjectile>();
             if(fireProjectile != null) {
                 fireProjectile.LaunchProjectile(enemyObject.transform.position);
+                animator.SetBool("isAttacking", true);
             }
         }
 
-        /* void OnDrawGizmos()
+        // This method will be called by an Animation Event at the end of the Attack animation
+        public void ResetAttack()
+        {
+            animator.SetBool("isAttacking", false);
+        }
+
+        /* void OnDrawGizmosSelected()
         {
             if (drawAttackDistance)
             {
