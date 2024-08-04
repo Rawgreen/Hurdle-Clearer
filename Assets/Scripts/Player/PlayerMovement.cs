@@ -3,25 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Player {
-    /// <summary>
-    /// Manages the movement of the player character using physics.
-    /// </summary>
     public class PlayerMovement : MonoBehaviour
-    {
-        public Animator animator;
-
+    {   
+        private float movementX;  
+        private float movementY;
+        [SerializeField]
+        private Animator animator;
+        [SerializeField]
+        private float moveSpeed = 5f;
         [SerializeField]
         private Rigidbody2D rigidBody;
-        private float movementX;  
-        private float movementY;  
-        private float moveSpeed;  
 
         void Start()
         {
-            PlayerStats playerStats = GetComponent<PlayerStats>();
-            if (playerStats != null){
-                moveSpeed = playerStats.GetMoveSpeed();
-            }
             if (rigidBody == null) {
                 rigidBody = GetComponent<Rigidbody2D>();
             }

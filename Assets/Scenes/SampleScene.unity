@@ -349,9 +349,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 393325810361328976, guid: 71508833899b3ed40a62e403528db4de, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1111340545770453145, guid: 71508833899b3ed40a62e403528db4de, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111340545770453145, guid: 71508833899b3ed40a62e403528db4de, type: 3}
+      propertyPath: drawGizmos
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111340545770453145, guid: 71508833899b3ed40a62e403528db4de, type: 3}
+      propertyPath: attackRange
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1430265792818085087, guid: 71508833899b3ed40a62e403528db4de, type: 3}
       propertyPath: m_AnchorMax.x
@@ -451,7 +463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9162206889293581814, guid: 71508833899b3ed40a62e403528db4de, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -560,6 +572,18 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1703283649}
+    - target: {fileID: 4814549330940688746, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776216854610550566, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776216854610550566, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6604051491614991006, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
       propertyPath: moveSpeed
       value: 4
@@ -575,6 +599,10 @@ PrefabInstance:
     - target: {fileID: 6604051491614991006, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
       propertyPath: attackDistance
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7509142512980368013, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7886927089531781201, guid: a9a3fe1a97e16f04d9092017952f9e4b, type: 3}
       propertyPath: m_Name

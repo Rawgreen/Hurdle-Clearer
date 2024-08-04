@@ -6,26 +6,23 @@ using UnityEngine;
 namespace Player {
     public class PlayerTakeDamage : MonoBehaviour, IDamageable {
         
-        public float currentHealth;
+        public float playerHealth = 2000f;
 
         public HealthBar healthBar;
-        private Player.PlayerStats playerStats;
 
         void Start() {
-            playerStats = gameObject.GetComponent<Player.PlayerStats>();
-            currentHealth = playerStats.GetPlayerHealth();
-            healthBar.SetMaxHealth(currentHealth);
+            healthBar.SetMaxHealth(playerHealth);
         }
 
         void Update() {
-            if (currentHealth <= 0) {
+            if (playerHealth <= 0) {
                 Die();
             }
         }
 
         public void Damage(float damage) {
-            currentHealth -= damage;
-            healthBar.SetHealthValue(currentHealth);
+            playerHealth -= damage;
+            healthBar.SetHealthValue(playerHealth);
         }
 
         public void Die() {

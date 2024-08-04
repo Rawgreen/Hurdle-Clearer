@@ -234,8 +234,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 8545975765312498507}
-  currentPosition: {x: 0, y: 0}
-  player: {fileID: 0}
 --- !u!114 &393325810361328976
 MonoBehaviour:
   m_ObjectHideFlags: 0

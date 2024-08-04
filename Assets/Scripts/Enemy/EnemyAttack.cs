@@ -15,7 +15,6 @@ namespace Enemy {
 
         public bool drawGizmos = false;
         public Transform attackPoint;
-        public GameObject ccAttackPrefab;
         public LayerMask playerLayer;
 
         private float timer;

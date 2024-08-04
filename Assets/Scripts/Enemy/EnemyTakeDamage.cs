@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemy {
-    /// <summary>
-    /// Handles the damage and death of an enemy character.
-    /// </summary>
     public class EnemyTakeDamage : MonoBehaviour, IDamageable {
         public HealthBar healthBar;  
         public float currentHealth;  
@@ -31,7 +28,7 @@ namespace Enemy {
 
         public void Die() {
             Debug.Log(gameObject.name + " died");
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
