@@ -8,11 +8,12 @@ namespace Player {
     public class PlayerAutoAttack : MonoBehaviour
     {
         [SerializeField] private bool drawGizmos = false;
-        [SerializeField] private float fireRate = 0.4f;
+        [SerializeField] private float fireRate = 0.5f;
         [SerializeField] private float attackRange = 5f;
         [SerializeField] private Transform projectileSpawnPos;
         [SerializeField] private GameObject projectileInstance;
 
+        private Animator animator;
         private GameObject targetEnemy;
         private Vector2 previousPosition;
         private Rigidbody2D rb;
@@ -21,36 +22,23 @@ namespace Player {
         void Start()
         {
             rb = gameObject.GetComponent<Rigidbody2D>();
+            animator = gameObject.GetComponent<Animator>();
         }
 
         void Update()
         {
             targetEnemy = FindClosestEnemy();
-
-            if (IsMoving() || targetEnemy == null)
-            {
-                // Reset rotation if the player is moving or the target enemy is destroyed
-                transform.rotation = Quaternion.identity;
-                projectileSpawnPos.rotation = Quaternion.identity;
-                return;
-            }
-
-            if (targetEnemy != null)
+            if (targetEnemy != null && !IsMoving())
             {
                 // Calculate the direction between the player and the target enemy
                 Vector2 direction = CalculateDirection(transform.position, targetEnemy.transform.position);
+                // Calculate the angle between the player and the target enemy and rotate projectile towards enemy.
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-                // Rotate the GameObject to face the target enemy
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
-                // Rotate the projectile spawn position to match the direction
                 projectileSpawnPos.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
                 if (InRange(targetEnemy.transform, attackRange) && canShoot)
                 {
-                    // Instantiate projectile
-                    Instantiate(projectileInstance, projectileSpawnPos.position, projectileSpawnPos.rotation);
+                    animator.SetBool("isAttacking", true);
                     StartCoroutine(AttackDelay());
                     canShoot = false;
                 }
@@ -100,9 +88,16 @@ namespace Player {
             return closestEnemy;
         }
 
+        public void InstantiateProjectile()
+        {
+            Instantiate(projectileInstance, projectileSpawnPos.position, projectileSpawnPos.rotation);
+
+        }
+
         private IEnumerator AttackDelay()
         {
             yield return new WaitForSeconds(fireRate);
+            animator.SetBool("isAttacking", false);
             canShoot = true;
         }
 
