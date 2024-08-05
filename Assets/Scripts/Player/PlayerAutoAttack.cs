@@ -7,67 +7,93 @@ using UnityEngine;
 namespace Player {
     public class PlayerAutoAttack : MonoBehaviour
     {
+        [SerializeField] private bool drawGizmos = false;
         [SerializeField] private float fireRate = 0.4f;
         [SerializeField] private float attackRange = 5f;
-        [SerializeField] private Transform playerWeaponPos;
         [SerializeField] private Transform projectileSpawnPos;
         [SerializeField] private GameObject projectileInstance;
 
-        private Transform targetEnemy;
-
-        private float maxDistance = 1000f;
+        private GameObject targetEnemy;
+        private Vector2 previousPosition;
+        private Rigidbody2D rb;
         private bool canShoot = true;
 
-        private void Update()
+        void Start()
+        {
+            rb = gameObject.GetComponent<Rigidbody2D>();
+        }
+
+        void Update()
         {
             targetEnemy = FindClosestEnemy();
+
+            if (IsMoving() || targetEnemy == null)
+            {
+                // Reset rotation if the player is moving or the target enemy is destroyed
+                transform.rotation = Quaternion.identity;
+                projectileSpawnPos.rotation = Quaternion.identity;
+                return;
+            }
+
             if (targetEnemy != null)
             {
-                Vector2 distance = targetEnemy.position - gameObject.transform.position;
-                float rotation = Mathf.Atan2(distance.y, distance.x) * Mathf.Rad2Deg;
-                playerWeaponPos.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
+                // Calculate the direction between the player and the target enemy
+                Vector2 direction = CalculateDirection(transform.position, targetEnemy.transform.position);
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-                if (InRange(targetEnemy.transform, attackRange))
+                // Rotate the GameObject to face the target enemy
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+                // Rotate the projectile spawn position to match the direction
+                projectileSpawnPos.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+                if (InRange(targetEnemy.transform, attackRange) && canShoot)
                 {
-                    if (canShoot)
-                    {
-                        // Calculate a safe spawn position for the projectile
-                        Vector2 spawnPosition = (Vector2)projectileSpawnPos.position + distance.normalized * 1f; // Adjust 0.5f as needed
-                        Instantiate(projectileInstance, spawnPosition, projectileSpawnPos.transform.rotation);
-                        StartCoroutine(AttackDelay());
-                        canShoot = false;
-                    }
+                    // Instantiate projectile
+                    Instantiate(projectileInstance, projectileSpawnPos.position, projectileSpawnPos.rotation);
+                    StartCoroutine(AttackDelay());
+                    canShoot = false;
                 }
+            }
+            else
+            {
+                //TODO: Remove after testing.
+                Debug.LogError("No enemy found within range.");
+                return;
             }
         }
 
         private bool InRange(Transform targetEnemy, float attackRange)
         {
-            if (Vector2.Distance(gameObject.transform.position, targetEnemy.transform.position) <= attackRange)
-            {
-                return true;
-            } 
-            else
-            {
-                return false;
-            }
+            return Vector2.Distance(transform.position, targetEnemy.transform.position) <= attackRange;
         }
 
-        private Transform FindClosestEnemy()
+        private bool IsMoving()
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, maxDistance, LayerMask.GetMask("Enemy"));
-            Transform closestEnemy = null;
-            float closestDistanceSqr = 1000f;
+            return rb.velocity != Vector2.zero;
+        }
+
+        private Vector2 CalculateDirection(Vector2 source, Vector2 target)
+        {
+            return (target - source).normalized;
+        }
+
+        private GameObject FindClosestEnemy()
+        {
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRange, LayerMask.GetMask("Enemy"));
+
+            GameObject closestEnemy = null;
+            float closestDistanceSqr = Mathf.Infinity;
 
             foreach (Collider2D collider in colliders)
             {
                 if (collider.CompareTag("Enemy"))
                 {
                     float distanceSqr = (collider.transform.position - transform.position).sqrMagnitude;
-                    if (distanceSqr < maxDistance)
+                    if (distanceSqr < closestDistanceSqr)
                     {
                         closestDistanceSqr = distanceSqr;
-                        closestEnemy = collider.transform;
+                        closestEnemy = collider.gameObject;
                     }
                 }
             }
@@ -82,8 +108,11 @@ namespace Player {
 
         private void OnDrawGizmosSelected()
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, attackRange);
+            if (drawGizmos)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawWireSphere(transform.position, attackRange);
+            }
         }
     }
 }

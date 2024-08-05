@@ -24,7 +24,6 @@ namespace Projectile {
             if (collision.gameObject.CompareTag("Enemy"))
             {
                 collision.gameObject.GetComponent<Enemy.EnemyTakeDamage>().Damage(projectileDamage);
-                Debug.Log("Projectile hit " + collision.gameObject.name + " for " + projectileDamage + " damage.");
                 DestroyProjectile();
             }
         }

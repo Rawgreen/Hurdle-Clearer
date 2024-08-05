@@ -3,32 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemy {
-    public class EnemyTakeDamage : MonoBehaviour, IDamageable {
-        public HealthBar healthBar;  
-        public float currentHealth;  
+    public class EnemyTakeDamage : MonoBehaviour, IDamageable
+    {
+        [SerializeField] private HealthBar healthBar;
+        [SerializeField] private float currentHealth;
+        [SerializeField] private float respawnTimer = 3f;
 
-        private Stats stats;  
+        private Stats stats;
+        private Vector2 initialPosition;
 
-        void Start() {
+        void Start()
+        {
             stats = GetComponent<Stats>();
             currentHealth = stats.GetEnemyHealth();
             healthBar.SetMaxHealth(currentHealth);
+            initialPosition = transform.position;
         }
 
-        void Update() {
-            if (currentHealth <= 0) {
+        public void Damage(float damage)
+        {
+            currentHealth -= damage;
+            healthBar.SetHealthValue(currentHealth);
+
+            if (currentHealth <= 0)
+            {
                 Die();
             }
         }
 
-        public void Damage(float damage) {
-            currentHealth -= damage;
-            healthBar.SetHealthValue(currentHealth);
+        public void Die()
+        {
+            gameObject.SetActive(false);
+            GameManager.Instance.StartRespawnCoroutine(Respawn());
         }
 
-        public void Die() {
-            Debug.Log(gameObject.name + " died");
-            gameObject.SetActive(false);
+        private IEnumerator Respawn()
+        {
+            yield return new WaitForSecondsRealtime(respawnTimer);
+            transform.position = initialPosition;
+            currentHealth = stats.GetEnemyHealth();
+            healthBar.SetMaxHealth(currentHealth);
+            healthBar.SetHealthValue(currentHealth);
+            gameObject.SetActive(true);
         }
     }
 }

@@ -219,8 +219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d95f8e9b1f8e54c814540218689d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 200
-  moveSpeed: 2
+  enemyHealth: 1000
+  moveSpeed: 0.5
 --- !u!114 &9162206889293581814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +265,6 @@ MonoBehaviour:
   attackDelay: 0.4
   drawGizmos: 0
   attackPoint: {fileID: 5932975854959520242}
-  ccAttackPrefab: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -369,9 +368,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2147027282440239437, guid: d41a45b49cd1b3d4aa17527abcce76f8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764411704532904523, guid: d41a45b49cd1b3d4aa17527abcce76f8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7021066827581050755, guid: d41a45b49cd1b3d4aa17527abcce76f8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7593310149128704631, guid: d41a45b49cd1b3d4aa17527abcce76f8, type: 3}
       propertyPath: m_Name
       value: Health Bar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7593310149128704631, guid: d41a45b49cd1b3d4aa17527abcce76f8, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7938891994749041322, guid: d41a45b49cd1b3d4aa17527abcce76f8, type: 3}
       propertyPath: m_AnchorMax.x
