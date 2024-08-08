@@ -5,14 +5,12 @@ using UnityEngine;
 namespace Player {
     public class PlayerMovement : MonoBehaviour
     {   
-        private float movementX;  
+        [SerializeField] private Animator animator;
+        [SerializeField] private float moveSpeed = 5f;
+        [SerializeField] private Rigidbody2D rigidBody;
+
+        private float movementX;
         private float movementY;
-        [SerializeField]
-        private Animator animator;
-        [SerializeField]
-        private float moveSpeed = 5f;
-        [SerializeField]
-        private Rigidbody2D rigidBody;
 
         void Start()
         {
@@ -31,8 +29,6 @@ namespace Player {
             animator.SetFloat("Vertical", input.y);
             animator.SetFloat("Speed", input.sqrMagnitude);
 
-            /* Debug.Log("Input magnitude: " + input); */
-
             if(input.magnitude > 0) {
                 rigidBody.velocity = input.normalized * moveSpeed;
             }
@@ -41,7 +37,8 @@ namespace Player {
             }
         }
 
-        public bool isPlayerOnMove() {
+        public bool isPlayerOnMove() 
+        {
             if (rigidBody.velocity != Vector2.zero) {
                 return true;
             } else {
